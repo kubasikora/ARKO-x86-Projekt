@@ -11,6 +11,10 @@ Projekt nr 12. Interaktywne rysowanie krzywych Beziera (krzywa pięciopunktowa).
 
 Project no. 12: Drawing an interactive five point Bezier Curve
 
+## Wersja projektu
+
+Projekt piszemy w wersji 64 bitowej!
+
 ## Zalecenia
 
 Zadaniem studenta jest określić jakie parametry dla algorytmu mogą być zmieniane przez użytkownika.
@@ -23,6 +27,5 @@ Wskazówki do pisania projektów:
 - Program powinien być interaktywny - powinien zapewniać możliwość zmian parametrów w trakcie działania przy pomocy klawiatury i/lub myszki.
 - Obsługa interakcji z używtkowniekiem oraz wyświetlanie wyników powinno być zrealizowane na poziomie języka C (z wykorzystaniem biblioteki graficznej np. Allegro, OpenGL).
 - Część assemblerowa powinna być napisana z wykorzystaniem arytmetyki zmiennopozycyjnej(float).
-- Prototyp funkcji napisanej w assemblerze:
-- void function(unsigned char *pPixelBuffer, int width, int height, /* inne parametry specyficzne dla danego algorytmu */);
+- Prototyp funkcji napisanej w assemblerze: void function(unsigned char *pPixelBuffer, int width, int height, /* inne parametry specyficzne dla danego algorytmu */);
 - Funkcja przyjmuje wskaźniek na bufor na którym później bedzie rysować. Bufor ten jest zaalokowany na poziomie języka C. Po potrocie z funkcji program na poziomie języka C powinien wyświetlić wynik działania. Każda zmiana parametru przez użytkownika powinna być wykryta na poziomie języka C i powinna zainicjować kolejne wywołanie funkcji assemblerowej. 
