@@ -11,6 +11,10 @@ Projekt nr 12. Interaktywne rysowanie krzywych Beziera (krzywa pięciopunktowa).
 
 Project no. 12: Drawing an interactive five point Bezier Curve
 
+## Wersja projektu
+
+Projekt piszemy w wersji 64 bitowej!
+
 ## Zalecenia
 
 Zadaniem studenta jest określić jakie parametry dla algorytmu mogą być zmieniane przez użytkownika.
