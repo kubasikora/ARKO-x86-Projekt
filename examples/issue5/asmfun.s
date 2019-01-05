@@ -14,8 +14,6 @@ issue5:
 	cmp cl, 0
 	jz end
 begin:
-	
-
 	cmp cl, '0'
 	jl nan
 

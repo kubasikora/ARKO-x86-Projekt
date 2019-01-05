@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall
-NAME = issue1
+NAME = issue9
 
 all: main.o asmfun.o
 	$(CC) $(CFLAGS) main.o asmfun.o -o $(NAME)
