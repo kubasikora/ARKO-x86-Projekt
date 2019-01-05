@@ -54,3 +54,28 @@ jg - Jump if Greater
 jge - Jump if Greater or Equal
 jnz - Jump if not zero 
 jz - Jump if zero   
+
+### Register division
+RAX -> EAX -> AX -> AH & AL
+RBX -> EBX -> BX -> BH & BL
+RCX -> ECX -> CX -> CH & CL
+RDX -> EDX -> DX -> DH & DL
+
+R8 -> R8D -> R8W -> R8B
+R9 -> R9D -> R9W -> R9B
+R10 -> R10D -> R10W -> R10B
+R11 -> R11D -> R11W -> R11B
+R12 -> R12D -> R12W -> R12B
+R13 -> R13D -> R13W -> R13B
+R14 -> R14D -> R14W -> R14B
+R15 -> R15D -> R15W -> R15B
+
+RDI -> EDI -> DI -> DIL
+RSP -> ESP -> SP -> SPL
+RIP -> EIP -> IP
+
+RFLAGS -> EFLAGS -> FLAGS
+
+RBP -> EBP -> BP > BPL
+RSI -> ESI -> SI > SIL
+
