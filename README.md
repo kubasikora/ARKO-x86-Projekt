@@ -32,5 +32,25 @@ Wskazówki do pisania projektów:
 
 
 ## Notatki do projektu 
+### Registers
 On a UNIX-like system, the first six parameters go into rdi, rsi, rdx, rcx, r8, and r9.
 
+System V X86_642 	
+- return value: rax, rdx 	
+- argument registers: rdi, rsi, rdx, rcx, r8, r9 	
+- additional parameters: stack (right to left) 	\
+- stack alignment 16-byte at call 	
+- scratch registers: rax, rdi, rsi, rdx, rcx, r8, r9, r10, r11
+- preserved register: rbx, rsp, rbp, r12, r13, r14, r15 	
+- call list: rbp 
+
+### Jumps
+jmp - JuMP - A direct jump without looking at the system flags
+je - Jump if Equal
+jne - Jump if Not Equal
+jl - Jump if Less
+jle - Jump if Less or Equal
+jg - Jump if Greater
+jge - Jump if Greater or Equal
+jnz - Jump if not zero 
+jz - Jump if zero   

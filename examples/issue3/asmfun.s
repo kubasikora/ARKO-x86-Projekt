@@ -1,7 +1,7 @@
 section .text
-global issue2
+global issue3
 
-issue2: ;prolog
+issue3: ;prolog
 	push rbp ;wrzuc na stos wskaznik ramki
 	mov rbp, rsp ;ustaw wskaznik ramki wskaznikiem stosu
 	mov rax, rdi ;ustaw argument do rax
@@ -25,7 +25,7 @@ end_loop:
 	pop rcx
 	mov [rax], cl
 	inc rax
-	
+
 	dec rbx
 	cmp rbx, 0
 	jnz end_loop
