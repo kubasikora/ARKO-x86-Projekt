@@ -6,7 +6,7 @@ int main(int argc, char* argv[]){
 		printf("Argument missing!\n");
 		return 0;
 	}	
-	issue1(argv[1]);
+	issue2(argv[1]);
 	printf("%s\n", argv[1]);
 	return 0;
 }

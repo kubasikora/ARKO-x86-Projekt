@@ -31,6 +31,6 @@ Wskazówki do pisania projektów:
 - Funkcja przyjmuje wskaźniek na bufor na którym później bedzie rysować. Bufor ten jest zaalokowany na poziomie języka C. Po potrocie z funkcji program na poziomie języka C powinien wyświetlić wynik działania. Każda zmiana parametru przez użytkownika powinna być wykryta na poziomie języka C i powinna zainicjować kolejne wywołanie funkcji assemblerowej. 
 
 
-## Notatki z projektu 
+## Notatki do projektu 
 On a UNIX-like system, the first six parameters go into rdi, rsi, rdx, rcx, r8, and r9.
 

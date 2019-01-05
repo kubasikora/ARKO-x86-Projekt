@@ -13,4 +13,4 @@ asmfun.o: asmfun.s
 	nasm -f elf64 -g asmfun.s
 
 clean:
-	rm -f *.o $(NAME)
+	rm -f *.o  $(NAME)
