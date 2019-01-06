@@ -1,0 +1,1 @@
+Odwrócenie kolejności znaków
