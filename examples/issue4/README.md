@@ -1,0 +1,1 @@
+Zamiana co trzeciej małej litery na odpowiadającą jej wielką 
