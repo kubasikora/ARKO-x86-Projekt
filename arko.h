@@ -1,7 +1,8 @@
-#ifndef __F_H_
-#define __F_H_
+#ifndef __ARKO_H_
+#define __ARKO_H_
 
 #define MAX_POINTS 5
+#define DEBUG
 
 /**
  *  Funkcja bezier odrysowuje na podanej bitmapie 
@@ -11,9 +12,15 @@
  *      - wskaźnik na bitmapę
  *      - liczba punktów z których należy odrysować bitmapę
  *      - wskaźnik na tablicę punktów (x,y)
- **/
-char* bezier(char*, int, int*); 
+ **/ 
+unsigned bezier(unsigned char*, int, int*, int*);
 
+
+/**
+ *  Struktura Points przechowuje informację o 
+ *  kliknięciach użytkownika. Przechowuje ilość punktów,
+ *  miejsce następnego zapisu oraz tablice x i y.
+ **/ 
 typedef struct Points {
     int num;
     int cursor;
@@ -21,4 +28,4 @@ typedef struct Points {
     int y[MAX_POINTS];
 } Points;
 
-#endif // __F_H_
+#endif // __ARKO_H_

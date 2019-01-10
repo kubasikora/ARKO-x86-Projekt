@@ -3,7 +3,7 @@ CFLAGS = -Wall
 ASMFILE = bezier
 CFILE = main
 NAME = bezier
-LIBS = -lallegro -lallegro_dialog
+LIBS = -lallegro -lallegro_dialog -lallegro_image
 
 all: main.o bezier.o
 	$(CC) $(CFLAGS) main.o bezier.o -o bezier $(LIBS)

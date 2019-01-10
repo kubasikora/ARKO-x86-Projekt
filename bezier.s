@@ -4,17 +4,22 @@ global bezier
 bezier:
 	push rbp		;prolog
 	mov rbp, rsp
-	mov rax, [rbp + 8]
+	; rdi - poczatek bitmapy
+	; rsi - liczba elementow
+	; rdx - poczatek tablicy x
+	; rcx - poczatek tablicy y
 
 begin:
-	mov cl, [rax] 		;laduj pierwszy bajt spod wskaznika
-	cmp cl, 0 		;czy zero
-	jz end 			;czy wynik ostatniej operacji jest zerem
+	mov rax, rdi
+	cmp rax, 0
+	jz end
 
-	add cl, 1
-	mov [rax], cl
-	inc rax
-	jmp begin
+	mov [rax], DWORD 0xFF0000FF
+	add rax, 4
+	mov  [rax], DWORD 0x000000FF
+	add rax, 4
+
+	mov rax, rdi
 
 end:
 	mov rsp, rbp		;epilog

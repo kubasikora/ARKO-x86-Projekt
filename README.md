@@ -38,7 +38,7 @@ On a UNIX-like system, the first six parameters go into rdi, rsi, rdx, rcx, r8, 
 System V X86_642 	
 - return value: rax, rdx 	
 - argument registers: rdi, rsi, rdx, rcx, r8, r9 	
-- additional parameters: stack (right to left) 	\
+- additional parameters: stack (right to left) 	
 - stack alignment 16-byte at call 	
 - scratch registers: rax, rdi, rsi, rdx, rcx, r8, r9, r10, r11
 - preserved register: rbx, rsp, rbp, r12, r13, r14, r15 	
