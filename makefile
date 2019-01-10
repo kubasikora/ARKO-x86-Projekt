@@ -5,8 +5,9 @@ CFILE = main
 NAME = bezier
 LIBS = -lallegro -lallegro_dialog
 
-all: main.o bezier.o 
+all: main.o bezier.o
 	$(CC) $(CFLAGS) main.o bezier.o -o bezier $(LIBS)
+
 main.o: main.c
 	$(CC) $(CFLAGS) -c main.c -o main.o
 

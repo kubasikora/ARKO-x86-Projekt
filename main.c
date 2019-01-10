@@ -15,30 +15,30 @@ volatile int close_button_pressed = 0;
 void close_button_handler(void);
 
 const float FPS = 60;
+const int WINDOW_WIDTH = 800;
+const int WINDOW_HEIGHT = 600;
 
 int main(int argc, char* argv[]){
-	if(argc < 2){
-		printf("Argument missing!\n");
-		return 0;
-	}
-
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_TIMER *tick = NULL;
-	
+	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+	ALLEGRO_BITMAP *bitmap = NULL;
+
 	bool redraw = true;
+
+	Points points;
+	points.num = -1;
 
     if(!al_init()) {
         printf("Error with allegro\n");
 		return -1;
     }
 
-    display = al_create_display(640, 480);
+    display = al_create_display(WINDOW_WIDTH, WINDOW_HEIGHT);
     if(!display){
          printf("Error with display\n");
 		return -1;
     }
-
-	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
 	event_queue = al_create_event_queue();
 	if (!event_queue){
@@ -51,6 +51,8 @@ int main(int argc, char* argv[]){
 		printf("Error with timer \n");
 		return -1;
 	}
+
+	bitmap = al_create_bitmap(WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	al_install_mouse();
 
@@ -75,9 +77,18 @@ int main(int argc, char* argv[]){
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
 				exit(0);
 			case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-				//printf("mouse x: %d, mouse y: %d", ev.mouse.x, ev.mouse.y);		
+				//printf("mouse x: %d, mouse y: %d", ev.mouse.x, ev.mouse.y);
+				points.x[points.cursor]	= ev.mouse.x;
+				points.y[points.cursor] = ev.mouse.y;
+				points.cursor++;
+				points.num++;
+				if(points.cursor > MAX_POINTS) points.cursor = 0;
+				if(points.num > MAX_POINTS) points.num = 0;
 				if(rising) i+=50;
 				else i-=50;
+				for (int i = 0; i <= points.num; i++){
+					printf("%d: (%d, %d)\n", i, points.x[i], points.y[i]);
+				}
 				break;
 			default:
 				break;
@@ -101,17 +112,5 @@ int main(int argc, char* argv[]){
 		}
 	}
 
-/*
-    al_clear_to_color(al_map_rgb(0xFF,0xFF,0xFF));
-    al_flip_display();
-*/
-      
-
-	
 	return 0;
-}
-
-
-void close_button_handler(void){
-	 	close_button_pressed = 1;
 }
