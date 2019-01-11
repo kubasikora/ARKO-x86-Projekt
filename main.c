@@ -58,6 +58,7 @@ int main(int argc, char* argv[]){
 
 		switch(ev.type){
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
+				printf("Saving bitmap on exit...");
 				al_save_bitmap("./bitmap.bmp", bitmap);
 				exit(0);
 
@@ -80,9 +81,6 @@ int main(int argc, char* argv[]){
 			redraw = false;
 
 			drawBezierCurve(bitmap, display, &points, WINDOW_WIDTH, WINDOW_HEIGHT);
-			al_set_target_bitmap(bitmap);
-			al_clear_to_color(al_map_rgb(255, 255, 255));
-			al_set_target_backbuffer(display);
 			al_draw_bitmap(bitmap, 0, 0, 0);
 			al_flip_display();
 		}

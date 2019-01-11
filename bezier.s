@@ -21,7 +21,7 @@ begin:
 	cmp rsi, 0
 	jz end
 
-points: 
+five_points: 
 	xor r10, r10
 	xor r11, r10
 
@@ -41,7 +41,13 @@ points:
 	
 	mov [rax], r9d
 
-	
+	add r14, 4
+	add r15, 4
+
+	dec rsi
+	cmp rsi, 0
+	jnz five_points
+
 	
 end:
 	pop r15
