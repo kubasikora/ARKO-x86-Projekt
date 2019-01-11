@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -m64
 ASMFILE = bezier
 CFILE = main
 NAME = bezier

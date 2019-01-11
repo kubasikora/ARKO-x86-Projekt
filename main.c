@@ -50,7 +50,7 @@ int main(int argc, char* argv[]){
 
 	al_register_event_source(event_queue, al_get_display_event_source(display));
 	al_register_event_source(event_queue, al_get_mouse_event_source());
-
+	
 	while (true)
 	{
 		ALLEGRO_EVENT ev;
@@ -69,13 +69,6 @@ int main(int argc, char* argv[]){
 				
 				if(points.cursor > MAX_POINTS) points.cursor = 0;
 				if(points.num > MAX_POINTS) points.num = 0;
-
-				#ifdef DEBUG
-				printf("==============\n");
-				for (int i = 0; i < points.num; i++){
-					printf("%d: (%d, %d)\n", i, points.x[i], points.y[i]);
-				}
-				#endif //DEBUG
 				redraw = true;
 				break;
 
@@ -87,7 +80,6 @@ int main(int argc, char* argv[]){
 			redraw = false;
 
 			drawBezierCurve(bitmap, &points, WINDOW_WIDTH, WINDOW_HEIGHT);
-
 			al_clear_to_color(al_map_rgb(255, 255, 255));
 			al_draw_bitmap(bitmap, 0, 0, 0);
 			al_flip_display();
@@ -99,11 +91,22 @@ int main(int argc, char* argv[]){
 
 void drawBezierCurve(ALLEGRO_BITMAP* bitmap, Points* points, int width, int height){
 	unsigned char* pixelBuffer;
+	unsigned char* ret;
 	ALLEGRO_LOCKED_REGION *region = NULL;
 	region = al_lock_bitmap(bitmap, ALLEGRO_PIXEL_FORMAT_ABGR_8888, ALLEGRO_LOCK_READWRITE);
 	pixelBuffer = (unsigned char*) region -> data;
 	pixelBuffer -= (-region->pitch * (WINDOW_HEIGHT -1));
-	bezier(pixelBuffer, points->num, points->x, points->y);
+	#ifdef DEBUG
+	printf("==============\n");
+	printf("buffer position: %p\n", pixelBuffer);
+	for (int i = 0; i < points->num; i++){
+		printf("%d: (%d, %d)\n", i, points->x[i], points->y[i]);
+	}
+	#endif //DEBUG
+	ret = bezier(pixelBuffer, points->num, points->x, points->y);
+	#ifdef DEBUG
+	printf("RET: %p\n", ret);
+	#endif
 	al_unlock_bitmap(bitmap);
 }
 

@@ -6,47 +6,48 @@ bezier:
 	mov rbp, rsp
 	; rdi - poczatek bitmapy
 	; rsi - liczba elementow
-	; rdx - poczatek tablicy x
-	; rcx - poczatek tablicy y
+	; rdx/r14 - poczatek tablicy x
+	; rcx/r15 - poczatek tablicy y
+	push r14
+	push r15
+	sub rsp, 8
+	mov [rsp-8], rdi
 
-begin:
-	mov rax, rdi
-	cmp rax, 0
+	mov r14, rdx
+	mov r15, rcx
+	mov r9, 0xFF00FF00
+
+begin:	
+	cmp rsi, 0
 	jz end
 
-	mov r10, 240000 ;max 480000
+points: 
+	xor r10, r10
+	xor r11, r10
 
-loop:
-	mov [rax], DWORD 0xFF0000FF
-	add rax, 4
-	dec r10
-	cmp r10, 0
-	jnz loop
+	mov r10d, [r14] ;wczytaj wspolrzedna x
+	sal r10, 2  ;multiply by 4 
 
-	;mov rax, rdi
-	mov r9, 300
-
-loop2:
-	mov r10, 200
-	mov r11, rax
-
-inner_loop2:
-	mov [rax], DWORD 0xFFFF0000
-	add rax, 4
-	dec r10
-	cmp r10, 0
-	jnz inner_loop2
-
+	;mov eax, [r15]
+	mov r11d, [r15]
+	;mov r11, 600
+	;sub r11, rax
 	mov rax, r11
-	add rax, 3200
 
-	dec r9
-	cmp r9, 0
-	jnz loop2
-
-
+	mov r11, 3200
+	mul r11 
+	mov r11, rax
+	
+	add r11, r10 ;obliczony offset
+	mov rax, [rsp-8]
+	add rax, r11
+	
+	mov [rax], r9d
+	
 end:
+	pop r15
+	pop r14
 	mov rsp, rbp		;epilog
-	pop rbp			;cofniecie esp o 4 i pobranie starego ebp
+	pop rbp			;cofniecie esp o 8 i pobranie starego ebp
 	ret 			;skok do adresu ze stosu
 
