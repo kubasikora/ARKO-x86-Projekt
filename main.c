@@ -58,7 +58,7 @@ int main(int argc, char* argv[]){
 
 		switch(ev.type){
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
-				printf("Saving bitmap on exit...");
+				printf("Saving bitmap on exit...\n");
 				al_save_bitmap("./bitmap.bmp", bitmap);
 				exit(0);
 
