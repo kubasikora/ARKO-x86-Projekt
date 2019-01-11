@@ -15,7 +15,7 @@
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
-void drawBezierCurve(ALLEGRO_BITMAP* bitmap, Points* points, int width, int height);
+void drawBezierCurve(ALLEGRO_BITMAP* bitmap, ALLEGRO_DISPLAY* display, Points* points, int width, int height);
 void initializeAllegro();
 
 int main(int argc, char* argv[]){
@@ -79,8 +79,10 @@ int main(int argc, char* argv[]){
 		if (redraw && al_is_event_queue_empty(event_queue)) {
 			redraw = false;
 
-			drawBezierCurve(bitmap, &points, WINDOW_WIDTH, WINDOW_HEIGHT);
+			drawBezierCurve(bitmap, display, &points, WINDOW_WIDTH, WINDOW_HEIGHT);
+			al_set_target_bitmap(bitmap);
 			al_clear_to_color(al_map_rgb(255, 255, 255));
+			al_set_target_backbuffer(display);
 			al_draw_bitmap(bitmap, 0, 0, 0);
 			al_flip_display();
 		}
@@ -89,25 +91,42 @@ int main(int argc, char* argv[]){
 	return 0;
 }
 
-void drawBezierCurve(ALLEGRO_BITMAP* bitmap, Points* points, int width, int height){
+void drawBezierCurve(ALLEGRO_BITMAP* bitmap, ALLEGRO_DISPLAY* display, Points* points, int width, int height){
 	unsigned char* pixelBuffer;
 	unsigned char* ret;
 	ALLEGRO_LOCKED_REGION *region = NULL;
+
 	region = al_lock_bitmap(bitmap, ALLEGRO_PIXEL_FORMAT_ABGR_8888, ALLEGRO_LOCK_READWRITE);
 	pixelBuffer = (unsigned char*) region -> data;
 	pixelBuffer -= (-region->pitch * (WINDOW_HEIGHT -1));
+
 	#ifdef DEBUG
 	printf("==============\n");
 	printf("buffer position: %p\n", pixelBuffer);
 	for (int i = 0; i < points->num; i++){
 		printf("%d: (%d, %d)\n", i, points->x[i], points->y[i]);
 	}
+	printf("cursor position: %d\n", points->cursor);
 	#endif //DEBUG
-	ret = bezier(pixelBuffer, points->num, points->x, points->y);
+
+	if(points->cursor != 0) {
+		#ifdef DEBUG
+		printf("Drawing...\n");
+		#endif
+		ret = bezier(pixelBuffer, points->num, points->x, points->y);
+	}
+
 	#ifdef DEBUG
 	printf("RET: %p\n", ret);
 	#endif
+
 	al_unlock_bitmap(bitmap);
+	
+	if(points->cursor == 0) {
+		al_set_target_bitmap(bitmap);
+		al_clear_to_color(al_map_rgb(255, 255, 255));
+		al_set_target_backbuffer(display);
+	}
 }
 
 void initializeAllegro(){

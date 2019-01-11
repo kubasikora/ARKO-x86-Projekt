@@ -13,7 +13,7 @@
  *      - liczba punktów z których należy odrysować bitmapę
  *      - wskaźnik na tablicę punktów (x,y)
  **/ 
-unsigned* bezier(unsigned char*, int, int*, int*);
+unsigned char* bezier(unsigned char*, int, int*, int*);
 
 
 /**

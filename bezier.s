@@ -28,10 +28,7 @@ points:
 	mov r10d, [r14] ;wczytaj wspolrzedna x
 	sal r10, 2  ;multiply by 4 
 
-	;mov eax, [r15]
 	mov r11d, [r15]
-	;mov r11, 600
-	;sub r11, rax
 	mov rax, r11
 
 	mov r11, 3200
