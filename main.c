@@ -96,6 +96,10 @@ void drawBezierCurve(ALLEGRO_BITMAP* bitmap, ALLEGRO_DISPLAY* display, Points* p
 	unsigned char* ret;
 	ALLEGRO_LOCKED_REGION *region = NULL;
 
+	al_set_target_bitmap(bitmap);
+	al_clear_to_color(al_map_rgb(255, 255, 255));
+	al_set_target_backbuffer(display);
+
 	region = al_lock_bitmap(bitmap, ALLEGRO_PIXEL_FORMAT_ABGR_8888, ALLEGRO_LOCK_READWRITE);
 	pixelBuffer = (unsigned char*) region -> data;
 	pixelBuffer -= (-region->pitch * (WINDOW_HEIGHT -1));
@@ -120,13 +124,7 @@ void drawBezierCurve(ALLEGRO_BITMAP* bitmap, ALLEGRO_DISPLAY* display, Points* p
 	printf("RET: %p\n", ret);
 	#endif
 
-	al_unlock_bitmap(bitmap);
-	
-	if(points->cursor == 0) {
-		al_set_target_bitmap(bitmap);
-		al_clear_to_color(al_map_rgb(255, 255, 255));
-		al_set_target_backbuffer(display);
-	}
+	al_unlock_bitmap(bitmap);	
 }
 
 void initializeAllegro(){
