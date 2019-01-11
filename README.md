@@ -79,3 +79,21 @@ RFLAGS -> EFLAGS -> FLAGS
 RBP -> EBP -> BP > BPL
 RSI -> ESI -> SI > SIL
 
+## Wzory na krzywe 
+
+p(t) = (x(t), y(t)) 
+
+### n = 0 
+x(t) = x0
+
+### n = 1
+x(t) = x0*(1-t) + x1*t
+
+### n = 2
+x(t) = x0*(1-t)^2 + 2*x1*t*(1-t) +x2*t^2
+
+### n = 3
+x(t) = x0*(1-t)^3 + 3*x1*t*(1-t)^2 + 3*x2*t^2*(1-t) + x3*t^3
+
+### n = 4
+x(t) = x*(1-t)^4 + 4*x1*t*(1-t)^3 + 6*x2*t^2*(1-t)^2 + 4*x3*t^3*(1-t) + x4*t^4
