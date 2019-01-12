@@ -58,7 +58,9 @@ int main(int argc, char* argv[]){
 
 		switch(ev.type){
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
+				#ifdef DEBUG
 				printf("Saving bitmap on exit...\n");
+				#endif
 				al_save_bitmap("./bitmap.bmp", bitmap);
 				exit(0);
 
@@ -91,6 +93,7 @@ int main(int argc, char* argv[]){
 
 void drawBezierCurve(ALLEGRO_BITMAP* bitmap, ALLEGRO_DISPLAY* display, Points* points, int width, int height){
 	unsigned char* pixelBuffer;
+	
 	#ifdef FLOAT
 	float ret;
 	#else
