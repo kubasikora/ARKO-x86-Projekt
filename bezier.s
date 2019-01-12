@@ -1,10 +1,12 @@
 [bits 64]
 section .data
 const_one: dd 1.0
-const_one_th: dd 0.001
+const_one_th: dd 0.0001
 const_zero: dd 0.0
 const_two: dd 2.0
 const_three: dd 3.0
+const_four: dd 4.0
+const_six: dd 6.0
 tmp: dd 0.0 
 
 section .text
@@ -351,15 +353,117 @@ next_four_points:
 	je loop_four_points 
 	jmp end	
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-five_points: 
-	xor r10, r10
-	xor r11, r10
+five_points:
+	movss xmm0, dword [const_zero] ; to jest t
+	movss xmm1, dword [const_one_th] ; o tyle zmniejszamy t
+	movss xmm2, dword [const_zero]; zero do porownan
 
-	mov r10d, [r14] ;wczytaj wspolrzedna x
+loop_five_points:
+	cvtsi2ss xmm4, [r14] ;load x0
+	cvtsi2ss xmm5, [r14+4] ; load x1
+	cvtsi2ss xmm6, [r14+8] ; load x2
+	cvtsi2ss xmm7, [r14+12] ; load x3
+	cvtsi2ss xmm8, [r14+16] ; load x4
+
+five_points_x:
+	movss xmm10, [const_one]
+	subss xmm10, xmm0 ; 1-t
+	mulss xmm10, xmm10 ; (1-t) * (1-t)
+	mulss xmm10, xmm10 ; (1-t) * (1-t) * (1-t)
+	mulss xmm10, xmm10 ; (1-t) * (1-t) * (1-t) * (1-t)
+	mulss xmm10, xmm4 ; (1-t) * (1-t) * (1-t) * (1-t) * x0
+
+	movss xmm11, [const_one]
+	subss xmm11, xmm0 ; 1-t
+	mulss xmm11, xmm11 ; (1-t) * (1-t)
+	mulss xmm11, xmm11 ; (1-t) * (1-t) * (1-t)
+	mulss xmm11, xmm0 ; (1-t) * (1-t) * (1-t) * t
+	mulss xmm11, [const_four] ; 4 * (1-t) * (1-t) * (1-t) * t
+	mulss xmm11, xmm5 ; 4 * (1-t) * (1-t) * (1-t) * t * x1
+	addss xmm10, xmm11 
+
+	movss xmm11, [const_one]
+	subss xmm11, xmm0 ; 1-t
+	mulss xmm11, xmm11 ; (1-t) * (1-t)
+	mulss xmm11, xmm0 ; (1-t) * (1-t) * t 
+	mulss xmm11, xmm0 ; (1-t) * (1-t) * t  * t
+	mulss xmm11, [const_six] ; 6 * (1-t) * (1-t) * t * t
+	mulss xmm11, xmm6 ; 6 * (1-t) * (1-t) * t * t * x2
+	addss xmm10, xmm11 
+
+	movss xmm11, [const_one]
+	subss xmm11, xmm0 ; 1-t
+	mulss xmm11, xmm0 ; (1-t) * t
+	mulss xmm11, xmm0 ; (1-t) * t * t
+	mulss xmm11, xmm0 ; (1-t) * t * t * t
+	mulss xmm11, [const_four] ; 4 * t * (1-t) * t * t
+	mulss xmm11, xmm7 ; 4 * (1-t) * t * t * t * x3
+	addss xmm10, xmm11 
+
+	movss xmm11, xmm0 ; t
+	mulss xmm11, xmm11 ; t * t
+	mulss xmm11, xmm11 ; t * t * t
+	mulss xmm11, xmm11 ; t * t * t * t
+	mulss xmm11, xmm8 ; x3 * t * t * t
+	addss xmm10, xmm11 
+	
+	cvtss2si r10, xmm10
+
+five_points_y:
+	cvtsi2ss xmm4, [r15] ;load y0
+	cvtsi2ss xmm5, [r15+4] ; load y1
+	cvtsi2ss xmm6, [r15+8] ; load y2
+	cvtsi2ss xmm7, [r15+12] ; load y3
+	cvtsi2ss xmm8, [r15+16] ; load y4
+
+	movss xmm10, [const_one]
+	subss xmm10, xmm0 ; 1-t
+	mulss xmm10, xmm10 ; (1-t) * (1-t)
+	mulss xmm10, xmm10 ; (1-t) * (1-t) * (1-t)
+	mulss xmm10, xmm10 ; (1-t) * (1-t) * (1-t) * (1-t)
+	mulss xmm10, xmm4 ; (1-t) * (1-t) * (1-t) * (1-t) * x0
+
+	movss xmm11, [const_one]
+	subss xmm11, xmm0 ; 1-t
+	mulss xmm11, xmm11 ; (1-t) * (1-t)
+	mulss xmm11, xmm11 ; (1-t) * (1-t) * (1-t)
+	mulss xmm11, xmm0 ; (1-t) * (1-t) * (1-t) * t
+	mulss xmm11, [const_four] ; 4 * (1-t) * (1-t) * (1-t) * t
+	mulss xmm11, xmm5 ; 4 * (1-t) * (1-t) * (1-t) * t * x1
+	addss xmm10, xmm11 
+
+	movss xmm11, [const_one]
+	subss xmm11, xmm0 ; 1-t
+	mulss xmm11, xmm11 ; (1-t) * (1-t)
+	mulss xmm11, xmm0 ; (1-t) * (1-t) * t 
+	mulss xmm11, xmm0 ; (1-t) * (1-t) * t  * t
+	mulss xmm11, [const_six] ; 6 * (1-t) * (1-t) * t * t
+	mulss xmm11, xmm6 ; 6 * (1-t) * (1-t) * t * t * x2
+	addss xmm10, xmm11 
+
+	movss xmm11, [const_one]
+	subss xmm11, xmm0 ; 1-t
+	mulss xmm11, xmm0 ; (1-t) * t
+	mulss xmm11, xmm0 ; (1-t) * t * t
+	mulss xmm11, xmm0 ; (1-t) * t * t * t
+	mulss xmm11, [const_four] ; 4 * t * (1-t) * t * t
+	mulss xmm11, xmm7 ; 4 * (1-t) * t * t * t * x3
+	addss xmm10, xmm11 
+
+	movss xmm11, xmm0 ; t
+	mulss xmm11, xmm11 ; t * t
+	mulss xmm11, xmm11 ; t * t * t
+	mulss xmm11, xmm11 ; t * t * t * t
+	mulss xmm11, xmm8 ; x3 * t * t * t
+	addss xmm10, xmm11 
+	
+	cvtss2si r11, xmm10
+
+draw_from_five_points:
 	sal r10, 2  ;multiply by 4 
 
-	mov r11d, [r15]
 	mov rax, 600
 	sub rax, r11
 
@@ -377,12 +481,16 @@ five_points:
 	mov [rax-3200], r9d
 	mov [rax+3200], r9d
 
-	add r14, 4
-	add r15, 4
+next_five_points:
+	addss xmm0, xmm1
+	movss xmm3, [const_one]
+	cmpss xmm3, xmm0, 2	
+	movq rax, xmm3
+	cmp rax, 0
+	je loop_five_points 
+	jmp end	
 
-	dec rsi
-	cmp rsi, 0
-	jnz five_points
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 end:
 	;mov rax, rsi
