@@ -44,6 +44,11 @@ System V X86_642
 - preserved register: rbx, rsp, rbp, r12, r13, r14, r15 	
 - call list: rbp 
 
+; rdi - poczatek bitmapy
+; rsi - liczba elementow
+; rdx/r14 - poczatek tablicy x
+; rcx/r15 - poczatek tablicy y
+
 ### Jumps
 jmp - JuMP - A direct jump without looking at the system flags
 je - Jump if Equal

@@ -13,8 +13,12 @@
  *      - liczba punktów z których należy odrysować bitmapę
  *      - wskaźnik na tablicę punktów (x,y)
  **/ 
-unsigned char* bezier(unsigned char*, int, int*, int*);
 
+#ifdef FLOAT
+float bezier(unsigned char*, int, int*, int*);
+#else
+unsigned char* bezier(unsigned char*, int, int*, int*);
+#endif //FLOAT
 
 /**
  *  Struktura Points przechowuje informację o 

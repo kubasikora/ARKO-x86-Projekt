@@ -91,7 +91,11 @@ int main(int argc, char* argv[]){
 
 void drawBezierCurve(ALLEGRO_BITMAP* bitmap, ALLEGRO_DISPLAY* display, Points* points, int width, int height){
 	unsigned char* pixelBuffer;
+	#ifdef FLOAT
+	float ret;
+	#else
 	unsigned char* ret;
+	#endif //FLOAT
 	ALLEGRO_LOCKED_REGION *region = NULL;
 
 	al_set_target_bitmap(bitmap);
@@ -114,13 +118,17 @@ void drawBezierCurve(ALLEGRO_BITMAP* bitmap, ALLEGRO_DISPLAY* display, Points* p
 	if(points->cursor != 0) {
 		#ifdef DEBUG
 		printf("Drawing...\n");
-		#endif
+		#endif //DEBUG
 		ret = bezier(pixelBuffer, points->num, points->x, points->y);
 	}
 
 	#ifdef DEBUG
+	#ifdef FLOAT 
+	printf("RET: %f\n", ret);
+	#else
 	printf("RET: %p\n", ret);
-	#endif
+	#endif //FLOAT
+	#endif //DEBUG
 
 	al_unlock_bitmap(bitmap);	
 }
