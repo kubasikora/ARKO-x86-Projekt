@@ -204,10 +204,6 @@ draw_from_three_points:
 	add rax, r11
 	
 	mov [rax], r9d
-	;mov [rax+4], r9d
-	;mov [rax-4], r9d
-	;mov [rax-3200], r9d
-	;mov [rax+3200], r9d
 
 next_three_points:
 	addss xmm0, xmm1
@@ -438,10 +434,6 @@ draw_from_five_points:
 	add rax, r11
 	
 	mov [rax], r9d
-	;mov [rax+4], r9d
-	;mov [rax-4], r9d
-	;mov [rax-3200], r9d
-	;mov [rax+3200], r9d
 
 next_five_points:
 	addss xmm0, xmm1

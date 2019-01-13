@@ -2,7 +2,7 @@
 #define __ARKO_H_
 
 #define MAX_POINTS 5
-#define DEBUG
+
 
 /**
  *  Funkcja bezier odrysowuje na podanej bitmapie 
